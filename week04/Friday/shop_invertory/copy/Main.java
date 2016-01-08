@@ -28,9 +28,12 @@ public class Main {
 		
 		Order order = new Order(4, 2);
 		order.addProduct(2, 10); 
-		
-		double price = inventory.RequestOrder(order);
-		System.out.println(price);
+		try {
+			double price = inventory.RequestOrder(order);
+			System.out.println(price);
+		} catch (NotAvailableInInventoryException e) {
+			e.printStackTrace();
+		}
 		
 		System.out.println(inventory.Audit());
 		System.out.println(inventory.getPoduct(4));

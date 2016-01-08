@@ -46,7 +46,7 @@ public class Inventory {
 		return res;
 	}
 
-	public Double RequestOrder(Order r) {
+	public Double RequestOrder(Order r) throws NotAvailableInInventoryException {
 		Double res = 0.0;
 		Product product;
 		for (Map.Entry<Integer, Integer> entry : r) {
@@ -54,15 +54,14 @@ public class Inventory {
 				product = invetory.get(entry.getKey());
 			} else {
 				// throw new NotAvailableInInventoryException("");
-				System.out.println("NotAvailableInInventoryException");
-				return res;
+				throw new NotAvailableInInventoryException("");
 			}
 			if (product.getQuantity() >= entry.getValue()) {
 				product.setQuantity(product.getQuantity() - entry.getValue());
 				res += entry.getValue() * product.getPrice();
 			} else {
 				// throw new NotAvailableInInventoryException("");
-				System.out.println("NotAvailableInInventoryException");
+				throw new NotAvailableInInventoryException("");
 			}
 		}
 		return res;
